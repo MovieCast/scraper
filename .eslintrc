@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "rules": {
+   "arrow-parens": ["off"],
+   "consistent-return": "off",
+   "comma-dangle": "off",
+   "generator-star-spacing": "off",
+   "no-use-before-define": "off"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0"
+  ],
+  "plugins": [
+    "transform-async-to-generator",
+    "transform-strict-mode", [
+      "transform-runtime", {
+        "polyfill": false,
+        "regenerator": true
+      }
+    ]
+  ]
+}

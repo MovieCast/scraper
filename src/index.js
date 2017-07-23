@@ -1,17 +1,7 @@
-import express from 'express';
-import http from 'http';
-import logger from 'morgan';
-
-import { getConfig, environment } from './config';
-import routes from './routes';
+import { getConfig } from './config';
+import { Server } from './modules/api';
 
 const config = getConfig();
-const server = express();
+const apiServer = new Server();
 
-routes(server);
-
-if (environment === 'development') {
-    server.use(logger('dev'));
-}
-
-server.listen(process.env.PORT || config.port);
+apiServer.serve(process.env.PORT || config.port);
