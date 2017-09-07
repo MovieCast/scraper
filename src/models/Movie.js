@@ -38,4 +38,4 @@ const MovieSchema = new Schema({
 
 MovieSchema.index({ title: "text", _id: 1 });
 
-export default model("Movie", MovieSchema);
+export const Movie = model("Movie", MovieSchema);

@@ -1,5 +1,4 @@
-import IProvider from './IProvider';
-import IApi from '../apis/IApi';
+import { IApi, IProvider } from '../interfaces';
 
 /**
  * Base class for scraper providers.
