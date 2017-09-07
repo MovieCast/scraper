@@ -1,9 +1,9 @@
+import mongoose from 'mongoose';
 import config from 'config';
 import Hapi from 'hapi';
 import path from 'path';
 
 const server = new Hapi.Server();
-
 server.connection({
     host: config.server.host,
     port: config.server.port,
@@ -49,7 +49,25 @@ server.register([
 ], err => {
     // Something didn't go so well...
     if (err) return console.error(err);
+
+    // Build the connection uri
+    let uri = 'mongodb://'
+    if (config.database.username && config.database.password) {
+    uri += `${config.database.username}:${config.database.password}@`
+    }
+    uri += `${config.database.host}:${config.database.port}/${config.database.name}`
+
+    // Connect to mongo db using mongoose
+    mongoose.Promise = global.Promise
+    mongoose.connect(uri, {
+        useMongoClient: true
+    });
+
+    mongoose.connection.once('open', () => {
+        server.log(['mongo'], `Connected to ${uri}`);
+    });
     
+    // Start the hapi server
     server.start(err => {
         // We fked up.
         if (err) return console.error(err);

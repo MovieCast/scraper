@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose from "mongoose";
 
 // The movie schema used by mongoose.
-const MovieSchema = new Schema({
+const MovieSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true
@@ -38,4 +38,4 @@ const MovieSchema = new Schema({
 
 MovieSchema.index({ title: "text", _id: 1 });
 
-export const Movie = model("Movie", MovieSchema);
+export const Movie = mongoose.model("Movie", MovieSchema);
