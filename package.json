@@ -28,6 +28,7 @@
     "babel-runtime": "^6.23.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "extratorrent-api": "^1.1.4",
     "mongoose": "^4.11.1",
     "winston": "^2.3.1"
   },
