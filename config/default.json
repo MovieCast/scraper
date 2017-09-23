@@ -7,5 +7,10 @@
         "host": "127.0.0.1",
         "port": 27017,
         "name": "moviecast-api"
+    },
+    "bot": {
+    	"ownerID":["242097488507568128" ,"148192449104314368"],
+    	"prefix":"!",
+    	"token":"MzYwOTMxMjc2MDc0NTE2NDgx.DKcu9Q.Na7NJKJ1N2qAcQWSyBgLjinG3f8"
     }
 }
