@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/MovieCast/moviecast-scraper#readme",
   "dependencies": {
+    "@moviecast/yts-api": "^0.0.1",
     "async-q": "^0.3.1",
     "babel-runtime": "^6.23.0",
     "body-parser": "^1.17.2",

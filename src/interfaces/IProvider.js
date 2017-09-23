@@ -2,7 +2,7 @@
  * Interface for a scraper provider.
  * @interface
  */
-export default class IProvider {
+export class IProvider {
 
     /**
      * Default method to get content.
