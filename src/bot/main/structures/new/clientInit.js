@@ -1,10 +1,9 @@
 import MovieCastClient from '../extensions/client';
 import Discord from 'discord.js';
 import config from 'config';
-import { CommandoClient } from 'discord.js-commando';
 import { createLogger } from './logger';
 
-const client = new CommandoClient({
+const client = new MovieCastClient({
     owner: config.bot.ownerID,
     commandPrefix: config.bot.prefix,
     unknownCommandResponse: false
