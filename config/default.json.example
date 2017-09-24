@@ -9,9 +9,9 @@
         "name": "moviecast-api"
     },
     "bot": {
-    	"ownerID":["242097488507568128" ,"148192449104314368"],
+    	"ownerID":"Array of ID's or a singular one",
     	"prefix":"!",
-    	"token":"MzYwOTMxMjc2MDc0NTE2NDgx.DKfNtA.hrwPQYukf9YS1RnXOIFVItqDNPk",
-    	"mongoURI":"mongodb://MovieCast:ScraperBot123@46.101.138.243:27017/MovieCast"
+    	"token":"Bot token",
+    	"mongoURI":"URL to mongodb database"
     }
 }
