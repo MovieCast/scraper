@@ -39,6 +39,7 @@
     "good-squeeze": "^5.0.2",
     "hapi": "^17.2.0",
     "mongoose": "^4.11.10",
+    "node-cron": "^1.2.1",
     "winston": "^2.3.1"
   },
   "devDependencies": {

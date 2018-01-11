@@ -1,7 +1,11 @@
 import config from 'config';
 import mongoose from 'mongoose';
 
+import Logger from './util/Logger';
+
 mongoose.Promise = Promise;
+
+const logger = new Logger('MongoDB');
 
 async function buildURI() {
     let uri = 'mongodb://'
@@ -21,7 +25,7 @@ export async function connect() {
 
     return mongoose.connection.once('open', async () => {
         //server.log(['mongo'], `Connected to ${uri}`);
-        console.log(`Connected to ${uri}`);
+        logger.info(`Connected to ${uri}`);
         return;
     });
 }

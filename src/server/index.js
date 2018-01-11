@@ -3,6 +3,10 @@ import config from 'config';
 import Hapi from 'hapi';
 import path from 'path';
 
+import Logger from '../util/Logger';
+
+const logger = new Logger('API');
+
 const server = new Hapi.Server({
     host: config.server.host,
     port: config.server.port,
@@ -32,7 +36,7 @@ export async function start() {
                 }, {
                     module: 'good-console',
                     args: [{
-                        format: 'YYYY-MM-DD HH:mm:ss'
+                        format: 'YYYY/MM/DD HH:mm:ss'
                     }]
                 }, 'stdout']
             }
@@ -49,7 +53,7 @@ export async function start() {
     // Start the hapi server
     await server.start();
 
-    return server.log(['server'], `Server running at: ${server.info.uri}`);
+    return logger.info(`Server running at: ${server.info.uri}`);
 }
 
 export async function stop() {
