@@ -1,7 +1,9 @@
-import './server';
-import YTS from './providers/movie/YTS';
-// Test provider
 
-let yts = new YTS();
+import * as mongodb from './mongodb';
+import * as server from './server';
+import * as scraper from './scraper';
 
-yts.fetch().then(console.log).catch(console.error);
+mongodb.connect().then(async () => {
+    await server.start();
+    await scraper.start();
+});

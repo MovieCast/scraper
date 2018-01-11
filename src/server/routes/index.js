@@ -1,13 +1,13 @@
-import pkg from '../../package.json';
+import pkg from '../../../package.json';
 
 module.exports = [{
     method: 'GET',
     path: '/',
-    handler: (request, reply) => {
-        return reply({
+    handler: (request) => {
+        return {
             server: pkg.name,
             version: pkg.version,
             uptime: process.uptime() | 0,
-        });
+        };
     }
 }]

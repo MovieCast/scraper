@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/MovieCast/moviecast-scraper#readme",
   "dependencies": {
+    "@moviecast/hapi-endpoint": "^1.0.0",
     "@moviecast/yts-api": "^0.0.1",
     "async-q": "^0.3.1",
     "babel-runtime": "^6.23.0",
@@ -33,10 +34,10 @@
     "express": "^4.15.3",
     "extratorrent-api": "^1.1.4",
     "file": "^0.2.2",
-    "good": "^7.3.0",
+    "good": "8.0.0-rc1",
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.2",
-    "hapi": "^16.5.2",
+    "hapi": "^17.2.0",
     "mongoose": "^4.11.10",
     "winston": "^2.3.1"
   },
