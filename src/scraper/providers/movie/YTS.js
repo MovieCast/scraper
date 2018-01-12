@@ -1,32 +1,40 @@
-import BaseProvider from '../BaseProvider';
 import YtsAPI from '@moviecast/yts-api';
-import { Movie } from '../../models';
+import pTimes from 'p-times';
+
+import BaseProvider from '../BaseProvider';
+import { Movie } from '../../../models';
 
 export default class YTS extends BaseProvider {
     constructor() {
-        super({ api: new YtsAPI(), model: Movie });
+        super('YTS', { api: new YtsAPI(), model: Movie, query: {} });
     }
 
     /**
-     * Returns a list of all the inserted torrents.
+     * Get all the torrents of a given torrent provider.
      * @override
-     * @returns {Promise<Array<Object>, undefined>} - A list of scraped content.
+     * @param {Number} totalPages - The total pages of the query.
+     * @returns {Promise} - A list of all the queried
+     * torrents.
      */
-    async fetch() {
-        try {
-            const firstSearch = await this.api.getMovies(this.query);
+    async getAllTorrents(totalPages) {
+        let torrents = [];
 
-            // Calculate the total pages needed to be fetched
-            const totalPages = process.env.NODE_ENV === 'development'
-                ? 3 : firstSearch.total_pages
-                    ? firstSearch.total_pages : Math.ceil(firstSearch.data.movie_count / 50);
+        await pTimes(totalPages, async page => {
+            this.query.page = page + 1;
+            
+            this.logger.debug(`Started fetching page ${page + 1} out of ${totalPages}`);
+            const response = await this.api.getMovies(this.query);
+            const data = response.data.movies;
 
-            console.log(`Calculated total pages: ${totalPages}`);
+            torrents = [ ...torrents, ...data ];
+        }, { concurrency: 1 });
 
+        this.logger.debug(`Found ${torrents.length} torrents.`);
+        return torrents;
+    }
 
-
-        } catch(err) {
-            console.error(err);
-        }
+    async getTotalPages() {
+        const response = await this.api.getMovies(this.query);
+        return Math.ceil(response.data.movie_count / 50)
     }
 }

@@ -1,4 +1,8 @@
-import { IApi, IProvider } from '../interfaces';
+import pTimes from 'p-times';
+
+import { IApi, IProvider } from '../../interfaces';
+
+import Logger from '../../util/Logger';
 
 /**
  * Base class for scraper providers.
@@ -12,8 +16,10 @@ export default class BaseProvider extends IProvider {
      * @param {!IApi} config.api - The api object for the provider.
      * @param {!Object} config.query - The query object for the api.
      */
-    constructor({ api, model, query }) {
+    constructor(name, { api, model, query }) {
         super();
+
+        this.logger = new Logger(name);
 
         /**
          * The api of the provider.
@@ -45,8 +51,26 @@ export default class BaseProvider extends IProvider {
      * @returns {Promise<Array<Object>, undefined>} - A list of all the queried
      * torrents.
      */
-    async getAllData(totalPages) {
-        
+    async getAllTorrents(totalPages) {
+        let torrents = [];
+
+        await pTimes(totalPages, async page => {
+            this.query.page = page + 1;
+            
+            this.logger.debug(`Started fetching page ${page + 1} out of ${totalPages}`);
+            const response = await this.api.search(this.query);
+            const data = res.results;
+
+            torrents = { ...torrents, ...data };
+        }, { concurrency: 1 });
+
+        this.logger.debug(`Found ${torrents.length} torrents.`);
+        return torrents;
+    }
+
+    async getTotalPages() {
+        const response = await this.api.search(this.query);
+        return response.total_pages;
     }
     
     /**
@@ -56,14 +80,11 @@ export default class BaseProvider extends IProvider {
      */
     async fetch() {
         try {
-            const firstSearch = await this.api.search(this.query);
+            const totalPages = await this.getTotalPages();
 
-            // Calculate the total pages needed to be fetched
-            const totalPages = process.env.NODE_ENV === 'development'
-                ? 3 : firstSearch.total_pages
-                    ? firstSearch.total_pages : Math.ceil(firstSearch.data.movie_count / 50);
+            this.logger.info(`Total pages to fetch: ${totalPages}`);
 
-            console.log(`Calculated total pages: ${totalPages}`);
+            const torrents = await this.getAllTorrents(totalPages);
 
 
 
