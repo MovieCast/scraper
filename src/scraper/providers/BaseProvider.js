@@ -1,7 +1,7 @@
+import pMap from 'p-map';
 import pTimes from 'p-times';
 
 import { IApi, IProvider } from '../../interfaces';
-
 import Logger from '../../util/Logger';
 
 /**
@@ -16,8 +16,10 @@ export default class BaseProvider extends IProvider {
      * @param {!IApi} config.api - The api object for the provider.
      * @param {!Object} config.query - The query object for the api.
      */
-    constructor(name, { api, model, query }) {
+    constructor(name, { api, model, query, helper }) {
         super();
+
+        this.name = name;
 
         this.logger = new Logger(name);
 
@@ -38,10 +40,20 @@ export default class BaseProvider extends IProvider {
          * @type {Object}
          */
         this.query = query;
+
+        /**
+         * The helper of this provider
+         * @type {BaseHelper}
+         */
+        this.helper = helper;
     }
 
-    getContent() {
-        throw new Error(`Using default method: 'getContent'`);
+    async getContent() {
+        throw new Error('Using default method: \'getContent\'');
+    }
+
+    async getAllContent(torrents) {
+        throw new Error('Using default method: \'getAllContent\'');
     }
 
     /**
@@ -86,8 +98,10 @@ export default class BaseProvider extends IProvider {
 
             const torrents = await this.getAllTorrents(totalPages);
 
+            const content = await this.getAllContent(torrents);
+            this.logger.info(`Total movies found: ${content.length}`);
 
-
+            return await pMap(content, torrent => this.getContent(torrent), { concurrency: 2 });
         } catch(err) {
             console.error(err);
         }

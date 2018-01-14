@@ -1671,6 +1671,12 @@ eyes@0.1.x:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
 
+fanart.tv@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/fanart.tv/-/fanart.tv-2.0.0.tgz#e162502e5062929f6352e13490317d804bf6c21b"
+  dependencies:
+    got "6.x.x"
+
 fancy-log@^1.1.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/fancy-log/-/fancy-log-1.3.0.tgz#45be17d02bb9917d60ccffd4995c999e6c8c9948"
@@ -2016,7 +2022,7 @@ good@8.0.0-rc1:
     oppsy "2.x.x"
     pumpify "1.3.x"
 
-got@^6.7.1:
+got@6.x.x, got@^6.7.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/got/-/got-6.7.1.tgz#240cd05785a9a18e561dc1b44b41c763ef1e8db0"
   dependencies:
@@ -2032,7 +2038,7 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-got@^7.1.0:
+got@7.x.x, got@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/got/-/got-7.1.0.tgz#05450fd84094e6bbea56f451a43a9c289166385a"
   dependencies:
@@ -3287,7 +3293,7 @@ p-finally@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
 
-p-map@^1.0.0:
+p-map@^1.0.0, p-map@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/p-map/-/p-map-1.2.0.tgz#e4e94f311eabbc8633a1e79908165fca26241b6b"
 
@@ -3770,6 +3776,10 @@ safe-buffer@^5.0.1, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
+sanitizer@0.x.x:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/sanitizer/-/sanitizer-0.1.3.tgz#d4f0af7475d9a7baf2a9e5a611718baa178a39e1"
+
 sax@>=0.6.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
@@ -4109,6 +4119,12 @@ timed-out@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/timed-out/-/timed-out-4.0.1.tgz#f32eacac5a175bea25d7fab565ab3ed8741ef56f"
 
+tmdbapi@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/tmdbapi/-/tmdbapi-1.0.2.tgz#8f7b3cbd2cb6074fcff3955d034ff6e9f675814b"
+  dependencies:
+    got "^6.7.1"
+
 tmp@^0.0.31:
   version "0.0.31"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.31.tgz#8f38ab9438e17315e5dbd8b3657e8bfb277ae4a7"
@@ -4142,6 +4158,13 @@ tough-cookie@~2.3.0:
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-2.3.2.tgz#f081f76e4c85720e6c37a5faced737150d84072a"
   dependencies:
     punycode "^1.4.1"
+
+trakt.tv@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/trakt.tv/-/trakt.tv-6.0.2.tgz#70d5b08e64eb9fb1d5e8327d9368881489d3e1f5"
+  dependencies:
+    got "7.x.x"
+    sanitizer "0.x.x"
 
 trim-right@^1.0.1:
   version "1.0.1"

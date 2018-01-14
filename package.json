@@ -33,6 +33,7 @@
     "config": "^1.26.2",
     "express": "^4.15.3",
     "extratorrent-api": "^1.1.4",
+    "fanart.tv": "^2.0.0",
     "file": "^0.2.2",
     "good": "8.0.0-rc1",
     "good-console": "^6.4.0",
@@ -40,7 +41,10 @@
     "hapi": "^17.2.0",
     "mongoose": "^4.11.10",
     "node-cron": "^1.2.1",
+    "p-map": "^1.2.0",
     "p-times": "^1.0.1",
+    "tmdbapi": "^1.0.2",
+    "trakt.tv": "^6.0.2",
     "winston": "^2.3.1"
   },
   "devDependencies": {
