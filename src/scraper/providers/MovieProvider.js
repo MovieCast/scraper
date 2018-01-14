@@ -9,8 +9,10 @@ export default class MovieProvider extends BaseProvider {
         const { slug, torrents } = content;
         const meta = await this.helper.getMetadata(slug);
 
-        // #fuckthisshit
-        meta.torrents = torrents;
+        if(meta) {
+            // #fuckthisshit
+            meta.torrents = torrents;
+        }
 
         return meta;
     }

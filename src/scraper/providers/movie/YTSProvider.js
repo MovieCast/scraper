@@ -65,15 +65,14 @@ export default class YTSProvider extends MovieProvider {
             const data = response.data.movies;
 
             torrents = [ ...torrents, ...data ];
-        }, { concurrency: 1 });
+        }, { concurrency: 10 });
 
         this.logger.debug(`Found ${torrents.length} torrents.`);
         return torrents;
     }
 
     async getTotalPages() {
-        //const response = await this.api.getMovies(this.query);
-        //return Math.ceil(response.data.movie_count / 50)
-        return 3;
+        const response = await this.api.getMovies(this.query);
+        return Math.ceil(response.data.movie_count / 50);
     }
 }
