@@ -1,7 +1,43 @@
+import pMap from 'p-map';
+
 import BaseHelper from "./BaseHelper";
 import { trakt, tmdb, fanart } from '../Constants';
+import { Movie } from '../../models/Movie';
 
 export default class MovieHelper extends BaseHelper {
+
+    async _updateMovie(movie) {
+        try {
+            const foundMovie = await Movie.findOne({ _id: movie.imdb_id });
+
+            if(foundMovie) {
+                this.logger.info(`${foundMovie.title} is an existing movie.`);
+
+                if(foundMovie.torrents) {
+                    // Update torrents
+                }
+
+                return await Movie.findOneAndUpdate({
+                    _id: foundMovie._id
+                }, movie, {
+                    upsert: true,
+                    new: true
+                });
+            }
+
+            this.logger.info(`${movie.title} is a new movie!`);
+            return await new Movie(movie).save();
+        } catch(err) {
+            console.log(err);
+            console.log(movie);
+        }
+    }
+
+    async addTorrents(movie, torrents) {
+        movie.torrents = { ...movie.torrents, torrents };
+
+        return this._updateMovie(movie);
+    }
 
     async _getTmdbImages(tmdbId) {
         const i = await tmdb.movie.images({
@@ -63,6 +99,7 @@ export default class MovieHelper extends BaseHelper {
                 });
 
                 return {
+                    _id: imdb,
                     imdb_id: imdb,
                     title: traktMovie.title,
                     year: traktMovie.year,
@@ -76,7 +113,7 @@ export default class MovieHelper extends BaseHelper {
                     },
                     images,
                     genres: traktMovie.genres ? traktMovie.genres : ['unknown'],
-                    language: traktMovie.language,
+                    country: traktMovie.language,
                     released: new Date(traktMovie.released).getTime() / 1000.0,
                     trailer: traktMovie.trailer,
                     certification: traktMovie.certification,

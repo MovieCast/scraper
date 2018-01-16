@@ -10,11 +10,8 @@ export default class MovieProvider extends BaseProvider {
         const meta = await this.helper.getMetadata(slug);
 
         if(meta) {
-            // #fuckthisshit
-            meta.torrents = torrents;
+            return await this.helper.addTorrents(meta, torrents);
         }
-
-        return meta;
     }
 
     async getContentData(torrent) {

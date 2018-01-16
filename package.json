@@ -39,7 +39,7 @@
     "good-console": "^6.4.0",
     "good-squeeze": "^5.0.2",
     "hapi": "^17.2.0",
-    "mongoose": "^4.11.10",
+    "mongoose": "^4.13.9",
     "node-cron": "^1.2.1",
     "p-map": "^1.2.0",
     "p-times": "^1.0.1",

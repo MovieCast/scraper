@@ -11,7 +11,7 @@ export default class YTSProvider extends MovieProvider {
             api: new YtsAPI(),
             helper: new MovieHelper(),
             model: Movie,
-            query: {}
+            query: { limit: 50 }
         });
     }
 

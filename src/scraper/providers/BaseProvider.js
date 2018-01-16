@@ -101,7 +101,7 @@ export default class BaseProvider extends IProvider {
             const content = await this.getAllContent(torrents);
             this.logger.info(`Total movies found: ${content.length}`);
 
-            return await pMap(content, torrent => this.getContent(torrent), { concurrency: 50 });
+            return await pMap(content, torrent => this.getContent(torrent), { concurrency: 10 });
         } catch(err) {
             console.error(err);
         }

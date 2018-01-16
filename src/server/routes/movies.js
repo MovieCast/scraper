@@ -3,6 +3,7 @@ import { Movie } from '../../models';
 // Since we dont need all the movie metadata, lets leave some stuff out
 const project = {
     _id: 1,
+    imdb_id: 1,
     title: 1,
     year: 1,
     images: 1,

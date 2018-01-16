@@ -11,8 +11,8 @@ export async function start() {
     logger.info('Started scraper');
     const result = await yts.fetch();
 
-    console.dir(result, { depth: null });
-    logger.info(`Result: ${result.length}`);
+    //console.dir(result, { depth: null });
+    //logger.info(`Result: ${result.length}`);
 }
 
 export async function stop() {

@@ -6,34 +6,27 @@ const MovieSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  imdb_id: String,
   title: String,
   slug: String,
-  meta: {
-    imdb_id: String,
-    year: String,
-    synopsis: String,
-    duration: String,
-    country: String,
-    released: Number,
-    certification: String,
-    rating: {
-      percentage: Number,
-      watching: Number,
-      votes: Number,
-      loved: Number,
-      hated: Number
-    },
-    trailer: String
-  },
+  year: String,
+  synopsis: String,
+  runtime: Number,
+  genres: [String],
+  country: String,
+  released: Number,
+  trailer: String,
+  certification: String,
   images: {
-    banner: String,
-    fanart: String,
-    poster: String
+    poster: String,
+    background: String
   },
-  genres: [],
-  torrents: {},
-  created_at: Number,
-  updated_at: Number
+  rating: {
+    percentage: Number,
+    watching: Number,
+    votes: Number
+  },
+  torrents: {}
 });
 
 MovieSchema.index({ title: "text", _id: 1 });
