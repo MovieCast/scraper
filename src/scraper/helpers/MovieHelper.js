@@ -34,7 +34,7 @@ export default class MovieHelper extends BaseHelper {
     }
 
     async addTorrents(movie, torrents) {
-        movie.torrents = { ...movie.torrents, torrents };
+        movie.torrents = { ...movie.torrents, ...torrents };
 
         return this._updateMovie(movie);
     }
