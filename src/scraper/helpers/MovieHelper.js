@@ -39,23 +39,29 @@ export default class MovieHelper extends BaseHelper {
         return this._updateMovie(movie);
     }
 
+    /**
+     * Get the images of given movie.
+     * @param {string} tmdbId - The tmdb movie id.
+     */
     async _getTmdbImages(tmdbId) {
-        const i = await tmdb.movie.images({
+
+        // A little util function which should
+        // be moved elsewere sometime.
+        function getPath(path, size) {
+            return `http://image.tmdb.org/t/p/${size}${path}`;
+        }
+
+        const result = await tmdb.movie.images({
             movie_id: tmdbId
         });
-        const baseUrl = 'http://image.tmdb.org/t/p/'
 
-        const tmdbPoster = i.posters.filter(
-            poster => poster.iso_639_1 === 'en' || poster.iso_639_1 === null
-        )[0].file_path;
-        const tmdbBackdrop = i.backdrops.filter(
-            backdrop => backdrop.iso_639_1 === 'en' || backdrop.iso_639_1 === null ||
-                        backdrop.height >= 1080 || backdrop.height >= 720
-        )[0].file_path;
+        const posters = result.posters.filter(i => i.iso_639_1 === 'en' || i.iso_639_1 === null);
+        const backdrops = result.backdrops.filter(i => i.iso_639_1 === 'en' || i.iso_639_1 === null);
 
+        // Sorry for the following return statement...I really am :(
         return {
-            background: `${baseUrl}w1280${tmdbBackdrop}`,
-            poster: `${baseUrl}w500${tmdbPoster}`
+            background: backdrops.length > 0 ? getPath(backdrops[0].file_path, backdrops[0].height >= '1080' ? 'original' : 'w1280') : null,
+            poster: posters.length > 0 ? getPath(posters[0].file_path, 'w320') : null,
         }
     }
 
@@ -74,8 +80,12 @@ export default class MovieHelper extends BaseHelper {
 
     getImages({ imdbId, tmdbId }) {
         return this._getTmdbImages(imdbId)
-            .catch(() => this._getFanartImages(tmdbId))
-            .catch(() => ({ banner: null, fanart: null, poster: null }))
+            .catch((err) => {
+                this.logger.error(err);
+                this.logger.warn('Failed to fetch images from TMDB, falling back to Fanart');
+                this._getFanartImages(tmdbId)
+            })
+            .catch(() => ({ background: null, poster: null }))
     }
 
     async getMetadata(slug) {

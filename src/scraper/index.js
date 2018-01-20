@@ -1,18 +1,13 @@
 import cron from 'node-cron';
 
-import YTS from './providers/movie/YTSProvider';
 import Logger from '../util/Logger';
+import { Scraper } from './Scraper';
 
-const logger = new Logger('Scraper');
-
-const yts = new YTS();
+const scraper = new Scraper();
 
 export async function start() {
-    logger.info('Started scraper');
-    const result = await yts.fetch();
-
-    //console.dir(result, { depth: null });
-    //logger.info(`Result: ${result.length}`);
+    cron.schedule('0 0 */6 * * *', scraper.scrape, true);
+    scraper.scrape();
 }
 
 export async function stop() {
