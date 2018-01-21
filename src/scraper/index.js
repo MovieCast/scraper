@@ -6,7 +6,7 @@ import { Scraper } from './Scraper';
 const scraper = new Scraper();
 
 export async function start() {
-    cron.schedule('0 0 */6 * * *', scraper.scrape, true);
+    cron.schedule('0 0 */6 * * *', scraper.scrape.bind(scraper), true);
     scraper.scrape();
 }
 
