@@ -58,7 +58,7 @@
     "babel-register": "^6.24.1",
     "eslint": "^4.3.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
+    "gulp-babel": "^7.0.0",
     "nodemon": "^1.11.0"
   }
 }
