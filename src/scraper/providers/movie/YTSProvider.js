@@ -6,14 +6,14 @@ import MovieProvider from '../MovieProvider';
 import MovieHelper from '../../helpers/MovieHelper';
 
 export default class YTSProvider extends MovieProvider {
-    constructor() {
-        super('YTS', {
-            api: new YtsAPI(),
-            helper: new MovieHelper(),
-            model: Movie,
-            query: { limit: 50 }
-        });
-    }
+    // constructor() {
+    //     super('YTS', {
+    //         api: new YtsAPI(),
+    //         helper: new MovieHelper(),
+    //         model: Movie,
+    //         query: { limit: 50 }
+    //     });
+    // }
 
     async getContentData(torrent) {
         if (

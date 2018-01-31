@@ -3,49 +3,95 @@ import pTimes from 'p-times';
 
 import { IApi, IProvider } from '../../interfaces';
 import Logger from '../../util/Logger';
+import BaseHelper from '../helpers/BaseHelper';
 
 /**
  * Base class for scraper providers.
  * @implements {IProvider}
  */
 export default class BaseProvider extends IProvider {
-    
+
+    /**
+     * The name of the provider.
+     * @type {string}
+     */
+    name = null;
+
+    /**
+     * The logger of the provider.
+     * @type {ILogger}
+     */
+    logger = null;
+
+    /**
+     * The api of the provider.
+     * @type {IApi}
+     */
+    api = new IApi();
+
+    /**
+     * The model used by the provider.
+     * @type {Object}
+     */
+    model = null;
+
+    /**
+     * The helper of this provider.
+     * @type {BaseHelper}
+     */
+    helper = new BaseHelper();
+
+    /**
+     * The query object for the api.
+     * @type {Object}
+     */
+    query = {};
+
     /**
      * Create a BaseProvider class.
      * @param {!Object} config - The configuration object for the provider.
      * @param {!IApi} config.api - The api object for the provider.
      * @param {!Object} config.query - The query object for the api.
      */
-    constructor(name, { api, model, query, helper }) {
-        super();
+    // constructor(name, { api, model, query, helper }) {
+    //     super();
 
+    //     this.name = name;
+
+    //     this.logger = new Logger(name);
+
+    //     /**
+    //      * The api of the provider.
+    //      * @type {IApi}
+    //      */
+    //     this.api = api;
+
+    //     /**
+    //      * The model used by the provider
+    //      * @type {Object}
+    //      */
+    //     this.model = model;
+
+    //     /**
+    //      * The query object for the api.
+    //      * @type {Object}
+    //      */
+    //     this.query = query;
+
+    //     /**
+    //      * The helper of this provider
+    //      * @type {BaseHelper}
+    //      */
+    //     this.helper = helper;
+    // }
+
+    initialize({ name, api, model, helper, query }) {
         this.name = name;
-
         this.logger = new Logger(name);
-
-        /**
-         * The api of the provider.
-         * @type {IApi}
-         */
-        this.api = api;
-
-        /**
-         * The model used by the provider
-         * @type {Object}
-         */
+        this.api = new api();
         this.model = model;
-
-        /**
-         * The query object for the api.
-         * @type {Object}
-         */
+        this.helper = new helper();
         this.query = query;
-
-        /**
-         * The helper of this provider
-         * @type {BaseHelper}
-         */
-        this.helper = helper;
     }
 
     async getContent() {
