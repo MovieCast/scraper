@@ -61,7 +61,7 @@ export default class MovieHelper extends BaseHelper {
         // Sorry for the following return statement...I really am :(
         return {
             background: backdrops.length > 0 ? getPath(backdrops[0].file_path, backdrops[0].height >= '1080' ? 'original' : 'w1280') : null,
-            poster: posters.length > 0 ? getPath(posters[0].file_path, 'w320') : null,
+            poster: posters.length > 0 ? getPath(posters[0].file_path, 'w342') : null,
         }
     }
 
