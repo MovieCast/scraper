@@ -4,12 +4,12 @@ import Tmdb from 'tmdbapi';
 import Fanart from 'fanart.tv';
 
 export const trakt = new Trakt({
-    client_id: config.trakt.client_id,
-    client_secret: config.trakt.client_secret,
+  client_id: config.trakt.client_id,
+  client_secret: config.trakt.client_secret,
 });
 
 export const tmdb = new Tmdb({
-    apiv3: config.tmdb.key
+  apiv3: config.tmdb.key
 });
 
 export const fanart = new Fanart(config.fanart.key);

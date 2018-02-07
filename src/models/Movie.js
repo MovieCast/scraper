@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 // The movie schema used by mongoose.
 const MovieSchema = new mongoose.Schema({
@@ -29,6 +29,6 @@ const MovieSchema = new mongoose.Schema({
   torrents: {}
 });
 
-MovieSchema.index({ title: "text", _id: 1 });
+MovieSchema.index({ title: 'text', _id: 1 });
 
-export const Movie = mongoose.model("Movie", MovieSchema);
+export const Movie = mongoose.model('Movie', MovieSchema);

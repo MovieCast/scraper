@@ -1,28 +1,47 @@
-import Chalk from 'chalk';
+/* eslint-disable no-console */
+
+import chalk from 'chalk';
 import moment from 'moment';
 
 export default class Logger {
-    constructor(name) {
-        this.name = name;
-    }
+  constructor(name) {
+    this.name = name;
+  }
 
-    _getTime() {
-        return moment().format('YYYY/MM/DD HH:MM:ss');
-    }
+  /**
+   * Internal function to format logs
+   * @param {*} level - The log level
+   * @param {*} color - The level color
+   * @param {*} msg - The message to log
+   * @private
+   */
+  _formattedLog(level, color, msg) {
+    console.log(chalk.dim(`[${moment().format('YYYY/MM/DD HH:MM:ss')}]`), color(`${this.name}/${level}:`), chalk.dim(msg));
+  }
 
-    info = (msg) => {
-        console.log(Chalk.dim(`[${this._getTime()}]`), Chalk.green(`${this.name}/INFO:`), Chalk.dim(msg));
-    }
+  info(msg) {
+    this._formattedLog('INFO', chalk.green, msg);
+  }
 
-    debug = (msg) => {
-        console.log(Chalk.dim(`[${this._getTime()}]`), Chalk.cyan(`${this.name}/DEBUG:`), Chalk.dim(msg));
-    }
+  debug(msg) {
+    this._formattedLog('DEBUG', chalk.cyan, msg);
+  }
 
-    warn = (msg) => {
-        console.log(Chalk.dim(`[${this._getTime()}]`), Chalk.yellow(`${this.name}/WARN:`), Chalk.dim(msg));
-    }
+  warn(msg) {
+    this._formattedLog('WARN', chalk.yellow, msg);
+  }
 
-    error = (msg) => {
-        console.log(Chalk.dim(`[${this._getTime()}]`), Chalk.red(`${this.name}/ERROR:`), Chalk.dim(msg));
-    }
-};
+  error(msg) {
+    this._formattedLog('ERROR', chalk.red, msg);
+  }
+
+  /**
+   * A wrapper to the normal console.log
+   * @param {*} msg - The message to log
+   */
+  log(msg) {
+    console.log(msg);
+  }
+}
+
+export const Console = new Logger('Console');

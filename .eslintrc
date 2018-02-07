@@ -1,14 +1,17 @@
 {
+  "extends": "airbnb-base",
   "parser": "babel-eslint",
   "env": {
     "mocha": true,
     "node": true
   },
   "rules": {
-   "arrow-parens": ["off"],
    "consistent-return": "off",
    "comma-dangle": "off",
-   "generator-star-spacing": "off",
-   "no-use-before-define": "off"
+   "class-methods-use-this": "off",
+   "new-cap": "off",
+   "no-underscore-dangle": "off",
+   "no-plusplus": "off",
+   "import/prefer-default-export": "off"
   }
 }
