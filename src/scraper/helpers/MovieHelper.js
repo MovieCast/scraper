@@ -2,7 +2,7 @@
 
 import BaseHelper from './BaseHelper';
 import { trakt, tmdb, fanart } from '../Constants';
-import { Movie } from '../../models/Movie';
+import { Movie } from '../../models';
 
 export default class MovieHelper extends BaseHelper {
   async _updateMovie(movie) {

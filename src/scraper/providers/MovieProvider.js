@@ -1,6 +1,5 @@
 import pMap from 'p-map';
 
-import { trakt } from '../Constants';
 import BaseProvider from './BaseProvider';
 
 export default class MovieProvider extends BaseProvider {
@@ -13,7 +12,7 @@ export default class MovieProvider extends BaseProvider {
     }
   }
 
-  async getContentData(torrent) {
+  async getContentData() {
     throw new Error('Using default method: \'getContentData\'');
   }
 
@@ -25,10 +24,10 @@ export default class MovieProvider extends BaseProvider {
 
       if (!movie) return;
 
-      const { slug, quality, torrents } = movie;
+      // const { slug, quality, torrents } = movie;
 
-      if (!movies.has(slug)) {
-        movies.set(slug, movie);
+      if (!movies.has(movie.slug)) {
+        movies.set(movie.slug, movie);
       }
     });
 
