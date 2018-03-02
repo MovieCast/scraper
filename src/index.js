@@ -1,12 +1,12 @@
 
 import * as mongodb from './mongodb';
-import * as server from './server';
-import * as scraper from './scraper';
+import * as Server from './server';
+import { Scraper } from './scraper';
 import { Console } from './util/Logger';
 
 mongodb.connect().then(async () => {
-  await server.start();
-  await scraper.start();
+  await Server.start();
+  await Scraper.start(true);
 });
 
 process.on('unhandledRejection', (err) => {

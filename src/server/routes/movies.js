@@ -99,6 +99,8 @@ module.exports = [{
       query.genres = data.genre;
     }
 
+    const totalMovies = await Movie.count({}).exec();
+
     const movies = await Movie.aggregate([{
       $sort: sort
     }, {
@@ -113,6 +115,8 @@ module.exports = [{
 
     return {
       page: page + 1,
+      totalPages: Math.ceil(totalMovies / 50),
+      totalResults: totalMovies,
       results: movies
     };
   }

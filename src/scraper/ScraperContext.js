@@ -1,7 +1,11 @@
-import { IProvider } from '../interfaces/IProvider';
+import { IProvider } from '../interfaces';
 import Logger from '../util/Logger';
 
 export default class ScraperContext {
+  /**
+   * Logger intance for the ScraperContext
+   * @type {Logger}
+   */
   logger = new Logger('ScraperContext');
 
   /**
@@ -9,7 +13,7 @@ export default class ScraperContext {
    * @type {IProvider}
    * @private
    */
-  _provider = new IProvider();
+  provider = new IProvider();
 
   /**
    * Set the current provider to use for scraping
@@ -17,7 +21,7 @@ export default class ScraperContext {
    */
   setProvider(provider) {
     this.logger.debug(`Provider set to ${provider.constructor.name}`);
-    this._provider = provider;
+    this.provider = provider;
 
     return this;
   }
@@ -27,14 +31,14 @@ export default class ScraperContext {
    * @return {IProvider} - the current provider
    */
   getProvider() {
-    return this._provider;
+    return this.provider;
   }
 
   /**
    * Start scrape process on set provider
    */
   async execute() {
-    this.logger.debug(`Executing provider ${this._provider.constructor.name}`);
-    return this._provider.fetch();
+    this.logger.debug(`Executing provider ${this.provider.constructor.name}`);
+    return this.provider.fetch();
   }
 }
