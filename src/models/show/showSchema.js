@@ -25,7 +25,7 @@ const showSchema = {
       overview: String,
       date_based: Boolean,
       first_aired: Number,
-      torrents: {}
+      torrents: []
     }]
   }
 };

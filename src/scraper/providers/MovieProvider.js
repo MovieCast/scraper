@@ -24,10 +24,10 @@ export default class MovieProvider extends BaseProvider {
 
       if (!movie) return;
 
-      // const { slug, quality, torrents } = movie;
-
-      if (!movies.has(movie.slug)) {
-        movies.set(movie.slug, movie);
+      const { slug } = movie;
+      // TODO: We need to merge them together
+      if (!movies.has(slug)) {
+        movies.set(slug, movie);
       }
     });
 

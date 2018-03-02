@@ -14,7 +14,7 @@ const movieSchema = {
     default: null
   },
   certification: String,
-  torrents: {}
+  torrents: []
 };
 
 export default new Schema(movieSchema, {

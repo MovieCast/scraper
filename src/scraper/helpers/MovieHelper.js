@@ -32,7 +32,7 @@ export default class MovieHelper extends BaseHelper {
   }
 
   async addTorrents(movie, torrents) {
-    movie.torrents = { ...movie.torrents, ...torrents };
+    movie.torrents = [...movie.torrents, ...torrents];
 
     return this._updateMovie(movie);
   }
@@ -124,7 +124,7 @@ export default class MovieHelper extends BaseHelper {
           released: new Date(traktMovie.released).getTime() / 1000.0,
           trailer: traktMovie.trailer,
           certification: traktMovie.certification,
-          torrents: {}
+          torrents: []
         };
       }
     } catch (err) {

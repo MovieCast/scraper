@@ -13,7 +13,7 @@ export default class YTSProvider extends MovieProvider {
         title: torrent.title,
         slug: torrent.imdb_code,
         year: torrent.year,
-        torrents: {}
+        torrents: []
       };
 
       for (let i = 0; i < torrent.torrents.length; i++) {
@@ -21,15 +21,16 @@ export default class YTSProvider extends MovieProvider {
           hash, quality, peers, seeds, size, size_bytes
         } = torrent.torrents[i];
 
-        if (!movie.torrents[quality]) {
-          movie.torrents[quality] = {
+        if (!movie.torrents.find(t => t.quality === quality)) {
+          movie.torrents.push({
             hash,
             seeds: seeds || 0,
             peers: peers || 0,
             size: size_bytes,
+            quality,
             fileSize: size,
             provider: this.name
-          };
+          });
         }
       }
 
