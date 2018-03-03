@@ -1,5 +1,5 @@
 /* eslint-disable no-bitwise */
-
+import cluster from 'cluster';
 import pkg from '../../../package.json';
 import Command from '../../util/Command';
 
@@ -16,6 +16,7 @@ module.exports = [{
 
     return {
       server: pkg.name,
+      worker: cluster.worker.id,
       version: pkg.version,
       commit: commit.replace('\n', ''),
       uptime: process.uptime() | 0

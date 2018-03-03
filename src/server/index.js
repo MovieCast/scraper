@@ -33,10 +33,10 @@ export async function start() {
           module: 'good-squeeze',
           name: 'Squeeze',
           args: [{
-            log: '*', error: '*', response: '*', request: '*', ops: '*'
+            log: '*', error: '*', response: '*', request: '*'
           }]
         }, {
-          module: 'good-console',
+          module: `${path.join(__dirname, '..', 'util', 'HapiLogger')}`,
           args: [{
             format: 'YYYY/MM/DD HH:mm:ss'
           }]

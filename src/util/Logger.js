@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+import { isMaster } from 'cluster';
 import chalk from 'chalk';
 import moment from 'moment';
 
@@ -16,7 +16,8 @@ export default class Logger {
    * @private
    */
   _formattedLog(level, color, msg) {
-    console.log(chalk.dim(`[${moment().format('YYYY/MM/DD HH:MM:ss')}]`), color(`${this.name}/${level}:`), chalk.dim(msg));
+    const pidColor = isMaster ? chalk.blue : chalk.yellow;
+    console.log(chalk.dim(`[${moment().format('YYYY/MM/DD HH:MM:ss')}]`), pidColor(process.pid), color(`${this.name}/${level}:`), chalk.dim(msg));
   }
 
   info(msg) {

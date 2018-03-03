@@ -21,7 +21,7 @@ export async function connect() {
   const uri = await buildURI();
 
   // Connect to mongo db using mongoose
-  mongoose.connect(uri, { useMongoClient: true });
+  mongoose.connect(uri);
 
   return mongoose.connection.once('open', async () => {
     // server.log(['mongo'], `Connected to ${uri}`);
