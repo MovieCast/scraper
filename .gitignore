@@ -9,7 +9,7 @@ dist
 # Dependency directories
 node_modules
 
-# Config files
-config/*.json
+# Environment files
+.env
 
 .eslintcache

@@ -1,15 +1,13 @@
-import config from 'config';
 import Trakt from 'trakt.tv';
 import Tmdb from 'tmdbapi';
 import Fanart from 'fanart.tv';
 
 export const trakt = new Trakt({
-  client_id: config.trakt.client_id,
-  client_secret: config.trakt.client_secret,
+  client_id: process.env.TRAKT_KEY
 });
 
 export const tmdb = new Tmdb({
-  apiv3: config.tmdb.key
+  apiv3: process.env.TMDB_KEY
 });
 
-export const fanart = new Fanart(config.fanart.key);
+export const fanart = new Fanart(process.env.FANART_KEY);
