@@ -12,11 +12,5 @@ module.exports = [
     provider: YTSProvider,
     helper: MovieHelper,
     query: { limit: 50 }
-  },
-  // {
-  //     name: "Mock",
-  //     provider: MockProvider,
-  //     helper: MockHelper,
-  //     config: {}
-  // }
+  }
 ];

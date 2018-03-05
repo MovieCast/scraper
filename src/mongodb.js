@@ -3,8 +3,6 @@ import { URL } from 'url';
 
 import Logger from './util/Logger';
 
-// mongoose.Promise = Promise;
-
 const logger = new Logger('MongoDB');
 
 export async function connect() {
@@ -24,4 +22,8 @@ export async function connect() {
   return mongoose.connection.once('open', async () => {
     logger.info(`Connected to ${uri.href}`);
   });
+}
+
+export async function disconnect() {
+  mongoose.disconnect();
 }

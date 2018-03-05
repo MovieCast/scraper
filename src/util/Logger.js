@@ -17,7 +17,7 @@ export default class Logger {
    */
   _formattedLog(level, color, msg) {
     const pidColor = isMaster ? chalk.blue : chalk.yellow;
-    console.log(chalk.dim(`[${moment().format('YYYY/MM/DD HH:MM:ss')}]`), pidColor(process.pid), color(`${this.name}/${level}:`), chalk.dim(msg));
+    console.log(chalk.dim(`[${moment().format('YYYY/MM/DD HH:MM:ss')}]`), color(level.padStart(5)), `${this.name}/${pidColor(process.pid)}:`, chalk.dim(msg));
   }
 
   info(msg) {

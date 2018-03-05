@@ -3,6 +3,7 @@ import Hapi from 'hapi';
 import path from 'path';
 
 import Logger from '../util/Logger';
+import HapiLogger from '../util/HapiLogger';
 
 const logger = new Logger('API');
 
@@ -22,25 +23,9 @@ const server = new Hapi.Server({
 
 export async function start() {
   await server.register({
-    plugin: require('good'),
+    plugin: HapiLogger,
     options: {
-      ops: {
-        interval: 30000
-      },
-      reporters: {
-        myConsoleReporter: [{
-          module: 'good-squeeze',
-          name: 'Squeeze',
-          args: [{
-            log: '*', error: '*', response: '*', request: '*'
-          }]
-        }, {
-          module: `${path.join(__dirname, '..', 'util', 'HapiLogger')}`,
-          args: [{
-            format: 'YYYY/MM/DD HH:mm:ss'
-          }]
-        }, 'stdout']
-      }
+      name: 'API'
     }
   });
 

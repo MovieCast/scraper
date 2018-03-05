@@ -1,39 +1,17 @@
 // Copy of Good-Console
 import Hoek from 'hoek';
-import Moment from 'moment';
-import Stream from 'stream';
 import SafeStringify from 'json-stringify-safe';
+
+import Logger from './Logger';
 
 const internals = {
   defaults: {
-    format: 'YYMMDD/HHmmss.SSS',
-    utc: true,
-    color: true
+    name: 'Hapi'
   }
 };
 
 internals.utility = {
-  formatOutput(event, settings) {
-    let timestamp = Moment(parseInt(event.timestamp, 10));
-
-    if (settings.utc) {
-      timestamp = timestamp.utc();
-    }
-
-    timestamp = timestamp.format(settings.format);
-
-    event.tags = event.tags.toString(); // eslint-disable-line
-    const tags = ` [${event.tags}] `;
-
-    // add event id information if available, typically for 'request' events
-    const id = event.id ? ` (${event.id})` : '';
-
-    const output = `[${timestamp}] ${process.pid}${id}${tags}${event.data}`;
-
-    return `${output}\n`;
-  },
-
-  formatMethod(method, settings) {
+  formatMethod(method) {
     const methodColors = {
       get: 32,
       delete: 31,
@@ -41,18 +19,15 @@ internals.utility = {
       post: 33
     };
 
-    let formattedMethod = method.toLowerCase();
-    if (settings.color) {
-      const color = methodColors[method.toLowerCase()] || 34;
-      formattedMethod = `\x1b[1;${color}m${formattedMethod}\x1b[0m`;
-    }
+    const color = methodColors[method.toLowerCase()] || 34;
+    const formattedMethod = `\x1b[1;${color}m${method.toLowerCase()}\x1b[0m`;
 
     return formattedMethod;
   },
 
-  formatStatusCode(statusCode, settings) {
+  formatStatusCode(statusCode) {
     let color;
-    if (statusCode && settings.color) {
+    if (statusCode) {
       color = 32;
       if (statusCode >= 500) {
         color = 31;
@@ -68,103 +43,31 @@ internals.utility = {
     return statusCode;
   },
 
-  formatResponse(event, tags, settings) {
+  formatResponse(event) {
     const query = event.query ? SafeStringify(event.query) : '';
-    const method = internals.utility.formatMethod(event.method, settings);
-    const statusCode = internals.utility.formatStatusCode(event.statusCode, settings) || '';
+    const method = internals.utility.formatMethod(event.method);
+    const statusCode = internals.utility.formatStatusCode(event.statusCode) || '';
+    const responseTime = event.info.responded - event.info.received;
 
     // event, timestamp, id, instance, labels, method, path, query, responseTime,
     // statusCode, pid, httpVersion, source, remoteAddress, userAgent, referer, log
     // method, pid, error
-    const output = `${event.instance}: ${method} ${event.path} ${query} ${statusCode} (${event.responseTime}ms)`;
-
-    const response = {
-      id: event.id,
-      timestamp: event.timestamp,
-      tags,
-      data: output
-    };
-
-    return internals.utility.formatOutput(response, settings);
-  },
-
-  formatOps(event, tags, settings) {
-    const memory = Math.round(event.proc.mem.rss / (1024 * 1024));
-    const output = `memory: ${memory}Mb, uptime (seconds): ${event.proc.uptime}, load: [${event.os.load}]`;
-
-    const ops = {
-      timestamp: event.timestamp,
-      tags,
-      data: output
-    };
-
-    return internals.utility.formatOutput(ops, settings);
-  },
-
-  formatError(event, tags, settings) {
-    const output = `message: ${event.error.message}, stack: ${event.error.stack}`;
-
-    const error = {
-      id: event.id,
-      timestamp: event.timestamp,
-      tags,
-      data: output
-    };
-
-    return internals.utility.formatOutput(error, settings);
-  },
-
-  formatDefault(event, tags, settings) {
-    const data = typeof event.data === 'object' ? SafeStringify(event.data) : event.data;
-    const output = `data: ${data}`;
-
-    const defaults = {
-      timestamp: event.timestamp,
-      id: event.id,
-      tags,
-      data: output
-    };
-
-    return internals.utility.formatOutput(defaults, settings);
+    return `HTTP ${method} ${event.path} ${query} ${statusCode} (${responseTime}ms)`;
   }
 };
 
-class HapiLogger extends Stream.Transform {
-  constructor(config) {
-    super({ objectMode: true });
-    this._settings = Hoek.applyToDefaults(internals.defaults, config || {});
-  }
+exports.register = async (server, options = {}) => {
+  const settings = Hoek.applyToDefaults(internals.defaults, options);
+  const logger = new Logger(settings.name);
 
-  _transform(data, enc, next) {
-    const eventName = data.event;
-    let tags = [];
+  server.events.on('response', (event) => {
+    logger.info(internals.utility.formatResponse(event));
+  });
 
-    if (Array.isArray(data.tags)) {
-      tags = data.tags.concat([]);
-    } else if (data.tags) {
-      tags = [data.tags];
-    }
+  server.events.on({ name: 'request', channels: ['error'] }, ({ error }) => {
+    logger.error(`message: ${error.message}, stack: ${error.stack}`);
+  });
+};
 
-    tags.unshift(eventName);
-
-    if (eventName === 'error' || data.error instanceof Error) {
-      return next(null, internals.utility.formatError(data, tags, this._settings));
-    }
-
-    if (eventName === 'ops') {
-      return next(null, internals.utility.formatOps(data, tags, this._settings));
-    }
-
-    if (eventName === 'response') {
-      return next(null, internals.utility.formatResponse(data, tags, this._settings));
-    }
-
-    if (!data.data) {
-      data.data = '(none)'; //eslint-disable-line
-    }
-
-    return next(null, internals.utility.formatDefault(data, tags, this._settings));
-  }
-}
-
-module.exports = HapiLogger;
+exports.name = 'HapiLogger';
+exports.version = '1.0.0';
