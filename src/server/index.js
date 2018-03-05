@@ -1,5 +1,4 @@
 /* eslint-disable global-require */
-import config from 'config';
 import Hapi from 'hapi';
 import path from 'path';
 
@@ -8,8 +7,8 @@ import Logger from '../util/Logger';
 const logger = new Logger('API');
 
 const server = new Hapi.Server({
-  host: config.server.host,
-  port: config.server.port,
+  host: process.env.API_HOST,
+  port: process.env.API_PORT,
   router: {
     stripTrailingSlash: true
   },

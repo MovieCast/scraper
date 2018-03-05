@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import cluster from 'cluster';
 import * as mongodb from './mongodb';
 import * as Server from './server';
@@ -10,7 +12,7 @@ mongodb.connect().then(async () => {
   }
 
   if (cluster.isMaster) {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < process.env.API_WORKERS; i++) {
       cluster.fork();
     }
     cluster.on('exit', ({ process }) => {

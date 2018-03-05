@@ -1,30 +1,27 @@
-import config from 'config';
 import mongoose from 'mongoose';
+import { URL } from 'url';
 
 import Logger from './util/Logger';
 
-mongoose.Promise = Promise;
+// mongoose.Promise = Promise;
 
 const logger = new Logger('MongoDB');
 
-async function buildURI() {
-  let uri = 'mongodb://';
-  if (config.database.username && config.database.password) {
-    uri += `${config.database.username}:${config.database.password}@`;
-  }
-  uri += `${config.database.host}:${config.database.port}/${config.database.name}`;
-
-  return uri;
-}
-
 export async function connect() {
-  const uri = await buildURI();
+  const {
+    MONGO_HOST,
+    MONGO_PORT,
+    MONGO_DATABASE,
+    MONGO_USER,
+    MONGO_PASS
+  } = process.env;
+
+  const uri = new URL(`mongodb://${MONGO_USER || ''}:${MONGO_PASS || ''}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`);
 
   // Connect to mongo db using mongoose
-  mongoose.connect(uri);
+  mongoose.connect(uri.href);
 
   return mongoose.connection.once('open', async () => {
-    // server.log(['mongo'], `Connected to ${uri}`);
-    logger.info(`Connected to ${uri}`);
+    logger.info(`Connected to ${uri.href}`);
   });
 }

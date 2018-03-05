@@ -31,7 +31,7 @@
     "@moviecast/yts-api": "^0.0.1",
     "boom": "^5.2.0",
     "chalk": "^2.3.0",
-    "config": "^1.26.2",
+    "dotenv": "^5.0.1",
     "extratorrent-api": "^1.1.4",
     "fanart.tv": "^2.0.0",
     "good": "8.0.0-rc1",
