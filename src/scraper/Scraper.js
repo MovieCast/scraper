@@ -71,9 +71,10 @@ export default class Scraper {
 
     const result = await pMap(
       providers,
-      async ({ provider, ...config }) => this.context
+      ({ provider, ...config }) => this.context
         .setProvider(new provider(config))
-        .execute(), 1
+        .execute(),
+      { concurrency: 1 }
     );
 
     this.logger.info('Stopped scraping');

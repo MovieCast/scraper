@@ -39,12 +39,12 @@ export default class YTSProvider extends MovieProvider {
   }
 
   /**
-     * Get all the torrents of a given torrent provider.
-     * @override
-     * @param {Number} totalPages - The total pages of the query.
-     * @returns {Promise} - A list of all the queried
-     * torrents.
-     */
+   * Get all the torrents of a given torrent provider.
+   * @override
+   * @param {Number} totalPages - The total pages of the query.
+   * @returns {Promise} - A list of all the queried
+   * torrents.
+   */
   async getAllTorrents(totalPages) {
     let torrents = [];
 
@@ -68,6 +68,8 @@ export default class YTSProvider extends MovieProvider {
   }
 
   async getTotalPages() {
+    if (process.env.NODE_ENV === 'development') return 1;
+
     const response = await this.api.getMovies(this.query);
     return Math.ceil(response.data.movie_count / this.query.limit);
   }

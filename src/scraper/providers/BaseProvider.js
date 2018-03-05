@@ -113,7 +113,7 @@ export default class BaseProvider extends IProvider {
 
         return await pMap(content, torrent => this.getContent(torrent), { concurrency: 1 });
       } catch (err) {
-        this.logger.log(err);
+        this.logger.error(err);
       }
     }
 }
