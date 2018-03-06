@@ -109,11 +109,11 @@ export default class BaseProvider extends IProvider {
         const torrents = await this.getAllTorrents(totalPages);
 
         const content = await this.getAllContent(torrents);
-        this.logger.info(`Total movies found: ${content.length}`);
+        this.logger.info(`Total items found: ${content.length}`);
 
-        return await pMap(content, torrent => this.getContent(torrent), { concurrency: 1 });
+        return pMap(content, torrent => this.getContent(torrent), { concurrency: 1 });
       } catch (err) {
-        this.logger.error(err);
+        this.logger.log(err);
       }
     }
 }

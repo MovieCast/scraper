@@ -106,7 +106,6 @@ export default class MovieHelper extends BaseHelper {
         });
 
         return {
-          _id: imdb,
           imdb_id: imdb,
           title: traktMovie.title,
           year: traktMovie.year,
