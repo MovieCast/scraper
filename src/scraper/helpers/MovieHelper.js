@@ -38,9 +38,9 @@ export default class MovieHelper extends BaseHelper {
   }
 
   /**
-     * Get the images of given movie.
-     * @param {string} tmdbId - The tmdb movie id.
-     */
+   * Get the images of given movie.
+   * @param {string} tmdbId - The tmdb movie id.
+   */
   async _getTmdbImages(tmdbId) {
     // A little util function which should
     // be moved elsewere sometime.

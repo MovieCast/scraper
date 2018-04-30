@@ -119,10 +119,6 @@ export default class ContentService {
       $match: query,
     }, {
       $project: this.projection
-    }, {
-      $skip: offset
-    }, {
-      $limit: this.pageSize
     }];
 
     if (sort) {
@@ -130,6 +126,13 @@ export default class ContentService {
         $sort: sort
       }];
     }
+
+    // FIXES SORT ISSUE
+    aggregateQuery = [...aggregateQuery, {
+      $skip: offset
+    }, {
+      $limit: this.pageSize
+    }];
 
     const results = await this.model.aggregate(aggregateQuery);
     const totalResults = await this.model.count(query);
