@@ -1,10 +1,16 @@
 node_modules
 npm-debug.log
+
 Dockerfile*
 docker-compose*
 .dockerignore
-.git
+
+#.git .git is needed for the status page
 .gitignore
+
 README.md
 LICENSE
-.vscode
+
+# Config files
+.env
+.env.example

@@ -1,7 +1,7 @@
-version: '2.1'
+version: '3'
 
 services:
-  moviecast-scraper:
+  scraper:
     image: moviecast-scraper
     build: .
     env_file:
@@ -13,9 +13,5 @@ services:
       MONGO_DATABASE: moviecast-scraper
     ports:
       - 3000:3000
-    links:
-      - mongo
   mongo:
     image: mongo
-    ports:
-      - 27017:27017

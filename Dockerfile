@@ -1,17 +1,26 @@
 FROM node:8.9-alpine
 
+# Force port 3000
+ENV API_PORT 3000
+
+# Install GIT
+RUN apk update && apk add --no-cache git
+
 # Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app
 
 # Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
+ADD package.json /tmp/package.json
+RUN cd /tmp && npm install
+RUN cp -a /tmp/node_modules /app
 
-# Bundle app source
-COPY . /usr/src/app
+# Build app source
+WORKDIR /app
+COPY . /app
 
 RUN npm run build
+RUN npm prune --production
 
-EXPOSE 3000
+EXPOSE $API_PORT
+
 CMD [ "npm", "start" ]
