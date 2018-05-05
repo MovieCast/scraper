@@ -46,7 +46,7 @@ internals.utility = {
   formatResponse(event) {
     const query = event.query ? SafeStringify(event.query) : '';
     const method = internals.utility.formatMethod(event.method);
-    const statusCode = internals.utility.formatStatusCode(event.statusCode) || '';
+    const statusCode = internals.utility.formatStatusCode(event.response.statusCode) || '';
     const responseTime = event.info.responded - event.info.received;
 
     // event, timestamp, id, instance, labels, method, path, query, responseTime,
@@ -64,8 +64,8 @@ exports.register = async (server, options = {}) => {
     logger.info(internals.utility.formatResponse(event));
   });
 
-  server.events.on({ name: 'request', channels: ['error'] }, ({ error }) => {
-    logger.error(`message: ${error.message}, stack: ${error.stack}`);
+  server.events.on({ name: 'request', channels: ['error'] }, (request, event) => {
+    logger.error(`message: ${event.error.message}, stack: ${event.error.stack}`);
   });
 };
 
