@@ -2,15 +2,10 @@ import 'dotenv/config';
 
 import cluster from 'cluster';
 import * as mongodb from './mongodb';
-import * as Server from './server';
-import { Scraper } from './scraper';
+import Scraper from './Scraper';
 import { Console } from './util/Logger';
 
 mongodb.connect().then(async () => {
-  if (cluster.isWorker) {
-    await Server.start();
-  }
-
   if (cluster.isMaster) {
     for (let i = 0; i < process.env.API_WORKERS; i++) {
       cluster.fork();

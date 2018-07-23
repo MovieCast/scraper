@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { URL } from 'url';
-import { isMaster, worker } from 'cluster';
+import { isMaster } from 'cluster';
 
 import Logger from './util/Logger';
 

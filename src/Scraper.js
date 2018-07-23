@@ -2,7 +2,7 @@ import cron from 'node-cron';
 import pMap from 'p-map';
 
 import ScraperContext from './ScraperContext';
-import Logger, { Console } from '../util/Logger';
+import Logger, { Console } from './util/Logger';
 import providers from './providers';
 
 export default class Scraper {

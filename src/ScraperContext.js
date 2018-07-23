@@ -1,5 +1,5 @@
-import { IProvider } from '../interfaces';
-import Logger from '../util/Logger';
+import { IProvider } from './interfaces';
+import Logger from './util/Logger';
 
 export default class ScraperContext {
   /**
