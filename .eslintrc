@@ -13,6 +13,7 @@
    "no-underscore-dangle": "off",
    "no-plusplus": "off",
    "import/prefer-default-export": "off",
+   "camelcase": "warn",
    "linebreak-style": "off"
   }
 }

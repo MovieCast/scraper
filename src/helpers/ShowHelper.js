@@ -3,7 +3,7 @@ import pMap from 'p-map';
 import BaseHelper from './BaseHelper';
 
 import { trakt, tmdb, fanart } from '../Constants';
-import { Show } from '../../models';
+import { Show } from '../models';
 
 export default class ShowHelper extends BaseHelper {
   async updateNumSeasons(show) {
@@ -148,7 +148,7 @@ export default class ShowHelper extends BaseHelper {
     };
   }
 
-  getImages({ imdbId, tmdbId }) {
+  getImages({ tmdbId }) {
     return this._getTmdbImages(tmdbId)
       .catch((err) => {
         this.logger.error(err);

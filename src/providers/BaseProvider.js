@@ -1,8 +1,8 @@
 import pMap from 'p-map';
 import pTimes from 'p-times';
 
-import { IApi, IProvider } from '../../interfaces';
-import Logger from '../../util/Logger';
+import { IApi, IProvider } from '../interfaces';
+import Logger from '../util/Logger';
 import BaseHelper from '../helpers/BaseHelper';
 
 /**

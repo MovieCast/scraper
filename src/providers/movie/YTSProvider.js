@@ -5,9 +5,9 @@ import MovieProvider from '../MovieProvider';
 export default class YTSProvider extends MovieProvider {
   async getContentData(torrent) {
     if (
-      torrent && torrent.torrents &&
-            torrent.imdb_code &&
-            torrent.language.match(/english/i)
+      torrent && torrent.torrents
+            && torrent.imdb_code
+            && torrent.language.match(/english/i)
     ) {
       const movie = {
         title: torrent.title,
@@ -18,7 +18,7 @@ export default class YTSProvider extends MovieProvider {
 
       for (let i = 0; i < torrent.torrents.length; i++) {
         const {
-          hash, quality, peers, seeds, size, size_bytes
+          hash, quality, peers, seeds, size, size_bytes // eslint-disable-line
         } = torrent.torrents[i];
 
         if (!movie.torrents.find(t => t.quality === quality)) {

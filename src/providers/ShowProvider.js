@@ -24,7 +24,9 @@ export default class ShowProvider extends BaseProvider {
       show.episodes[torrent.season][torrent.episode] = [];
     }
 
-    let foundTorrent = show.episodes[torrent.season][torrent.episode].find(t => t.quality === torrent.torrent.quality);
+    let foundTorrent = show.episodes[torrent.season][torrent.episode].find(
+      t => t.quality === torrent.torrent.quality
+    );
     if (!foundTorrent) {
       show.episodes[torrent.season][torrent.episode].push(torrent.torrent);
     } else if (foundTorrent.seeds < torrent.seeds) {

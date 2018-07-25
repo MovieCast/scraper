@@ -1,15 +1,13 @@
 {
   "presets": [
-    "es2015",
-    "stage-0"
+    ["env", {
+      "targets": {
+        "node": "8.11.2"
+      }
+    }]
   ],
   "plugins": [
-    "transform-async-to-generator",
-    "transform-strict-mode", [
-      "transform-runtime", {
-        "polyfill": false,
-        "regenerator": true
-      }
-    ]
+    "transform-class-properties",
+    "transform-object-rest-spread"
   ]
 }

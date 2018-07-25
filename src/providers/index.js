@@ -6,7 +6,7 @@ import EZTVProvider from './show/EZTVProvider';
 
 import MovieHelper from '../helpers/MovieHelper';
 import ShowHelper from '../helpers/ShowHelper';
-import { Movie, Show } from '../../models';
+import { Movie, Show } from '../models';
 
 module.exports = [
   {
