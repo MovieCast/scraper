@@ -3,11 +3,25 @@ import pTimes from 'p-times';
 import MovieProvider from '../MovieProvider';
 
 export default class YTSProvider extends MovieProvider {
+  constructor({
+    name, api, model, helper, query,
+  }) {
+    super({
+      name, api, model, helper, query
+    });
+    // this.name = name;
+    // this.logger = new Logger(name);
+    this.api = new api({ baseUrl: 'https://yts.am/api/v2/' });
+    // this.model = model;
+    // this.helper = new helper();
+    // this.query = query;
+  }
+
   async getContentData(torrent) {
     if (
-      torrent && torrent.torrents &&
-            torrent.imdb_code &&
-            torrent.language.match(/english/i)
+      torrent && torrent.torrents
+            && torrent.imdb_code
+            && torrent.language.match(/english/i)
     ) {
       const movie = {
         title: torrent.title,
