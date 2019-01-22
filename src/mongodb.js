@@ -12,21 +12,24 @@ const maxTries = 5;
 export async function connect() {
   try {
     const {
-      MONGO_HOST,
-      MONGO_PORT,
-      MONGO_DATABASE,
-      MONGO_USER,
-      MONGO_PASS
+      MONGO_HOST = 'localhost',
+      MONGO_PORT = 27017,
+      MONGO_AUTH = 'admin',
+      MONGO_DATABASE = 'moviecast-api',
+      MONGO_USER = null,
+      MONGO_PASS = null
     } = process.env;
 
     tries++;
-    const uri = new URL(`mongodb://${MONGO_USER || ''}:${MONGO_PASS || ''}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`);
+    const uri = `mongodb://${MONGO_HOST}:${MONGO_PORT}`;
 
     // Connect to mongo db using mongoose
-    await mongoose.connect(uri.href);
+    await mongoose.connect(uri, {
+      authdb: MONGO_AUTH, dbName: MONGO_DATABASE, user: MONGO_USER, pass: MONGO_PASS
+    });
 
     // return mongoose.connection.once('open', async () => {
-    logger.info(`Connected to ${uri.href}`);
+    logger.info(`Connected to ${uri}`);
     // });
   } catch (e) {
     logger.error('An error occured while connecting to mongodb', e);
