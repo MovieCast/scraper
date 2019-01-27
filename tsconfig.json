@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "esnext",
+      "declaration": true,
+      "sourceMap": true,
+      "inlineSources": true,
+      "outDir": "./lib"
+    },
+    "include": [
+      "./src/**/*.ts"
+    ]
+  }
